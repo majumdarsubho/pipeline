@@ -118,6 +118,27 @@ pipeline {
 		}
 	      }
 	    }
+		
+	stage('Build') {
+		steps {
+		    sh """mkdir -p "${BUILDPATH}/Workspace"
+			  mkdir -p "${BUILDPATH}/Libraries/python"
+			  mkdir -p "${BUILDPATH}/Validation/Output"
+			  #Get Modified Files
+			  git diff --name-only --diff-filter=AMR HEAD^1 HEAD | xargs -I '{}' cp --parents -r '{}' ${BUILDPATH}
+
+			  cp ${WORKSPACE}/Notebooks/*.ipynb ${BUILDPATH}/Workspace
+
+			  # Get packaged libs
+			  find ${LIBRARYPATH} -name '*.whl' | xargs -I '{}' cp '{}' ${BUILDPATH}/Libraries/python/
+
+			  # Generate artifact
+			  #tar -czvf Builds/latest_build.tar.gz ${BUILDPATH}
+			"""
+			slackSend failOnError: true, color: "#439FE0", message: "Build Started: ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+		}
+
+	}
 	  
 	stage('SonarQube analysis') {
 		  steps {
