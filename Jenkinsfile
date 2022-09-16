@@ -9,9 +9,9 @@ pipeline {
     CLUSTERID           = "0819-214501-chjkd9g9"
     DBURL               = "https://dbc-db420c65-4456.cloud.databricks.com"
 
-    TESTRESULTPATH  ="./teste_results"
+    TESTRESULTPATH  ="${BUILDPATH}/Validation/reports/junit"
     LIBRARYPATH     = "./Libraries"
-    OUTFILEPATH     = "./Validation/Output"
+    OUTFILEPATH     = "${BUILDPATH}/Validation/Output"
     NOTEBOOKPATH    = "./Notebooks"
     WORKSPACEPATH   = "/Demo-notebooks"               //"/Shared"
     DBFSPATH        = "dbfs:/FileStore/"
