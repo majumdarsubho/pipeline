@@ -189,6 +189,13 @@ pipeline {
 		 }
 	}
 	  
+	stage('Report Test Results') {
+	  sh """find ${OUTFILEPATH} -name '*.json' -exec gzip --verbose {} \\;
+		touch ${TESTRESULTPATH}/TEST-*.xml
+	     """
+	  junit "**/reports/junit/*.xml"
+	}
+	  
   }
 	
   post {
