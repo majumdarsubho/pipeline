@@ -5,18 +5,19 @@ pipeline {
     
     //WORKSPACE           = '.'
     //DBRKS_BEARER_TOKEN  = "xyz"
+    GITREPO             = "/var/lib/jenkins/workspace/${env.JOB_NAME}"
     DBTOKEN             = "databricks-token"
     CLUSTERID           = "0819-214501-chjkd9g9"
     DBURL               = "https://dbc-db420c65-4456.cloud.databricks.com"
 
     TESTRESULTPATH  ="${BUILDPATH}/Validation/reports/junit"
-    LIBRARYPATH     = "./Libraries"
+    LIBRARYPATH     = "${GITREPO}/Libraries"
     OUTFILEPATH     = "${BUILDPATH}/Validation/Output"
-    NOTEBOOKPATH    = "./Notebooks"
+    NOTEBOOKPATH    = "${GITREPO}/Notebooks"
     WORKSPACEPATH   = "/Demo-notebooks"               //"/Shared"
     DBFSPATH        = "dbfs:/FileStore/"
     BUILDPATH       = "${WORKSPACE}/Builds/${env.JOB_NAME}-${env.BUILD_NUMBER}"
-    SCRIPTPATH      = "./Scripts"
+    SCRIPTPATH      = "${GITREPO}/Scripts"
     projectName = "${WORKSPACE}"  //var/lib/jenkins/workspace/Demopipeline/
     projectKey = "key"
  }
