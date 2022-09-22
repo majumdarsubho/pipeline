@@ -6,16 +6,19 @@ import os
 
 class TestJobOutput(unittest.TestCase):
 
-  test_output_path = '#ENV#'
-
+  #test_output_path = '#ENV#'
+  test_output_path = './Validation/Output'
+  print('test_output_path is ')
   def test_performance(self):
       path = self.test_output_path
+      print('path is ')
       statuses = []
 
       for filename in glob.glob(os.path.join(path, '*.json')):
           print('Evaluating: ' + filename)
           data = json.load(open(filename))
           duration = data['execution_duration']
+          print(duration)
           if duration > 100000:
               status = 'FAILED'
           else:
@@ -35,6 +38,7 @@ class TestJobOutput(unittest.TestCase):
           print('Evaluating: ' + filename)
           data = json.load(open(filename))
           status = data['state']['result_state']
+          print(status)
           statuses.append(status)
 
       self.assertFalse('FAILED' in statuses)
